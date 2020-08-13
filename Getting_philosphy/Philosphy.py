@@ -14,21 +14,20 @@ target="https://en.wikipedia.org/wiki/Philosophy"
 
 
 def get_first_link(urlpath):
+  "this function is for searching for the first reachable link "
   html_text = requests.get(urlpath).text
   soup = BeautifulSoup(html_text, 'html.parser')
   print(soup.title)
   txt=soup
   new_link = None
+  
   temp =txt.body.find_all('p')[0]
-  start_count = 0
-  started = False
-  found = False
-  #print(temp)
   if temp.find('a', recursive=False):
       new_link = temp.find('a', recursive=False).get('href')
 
   if not new_link:
    return
+
   #print(new_link)
   first_link_to_go=urllib.parse.urljoin('https://en.wikipedia.org',new_link)
   #print(first_link_to_go)
